@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>934</width>
+    <height>552</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Graphic Editor</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* QPushButton */
+QPushButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: #C0C0C0;
+    border: none;
+}
+
+QPushButton:hover {
+    background-color: #808080;
+}
+
+/* QLineEdit */
+QLineEdit {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: black;
+    background-color: #C0C0C0;
+    border: none;
+}
+
+QLineEdit:focus {
+    background-color: #808080;
+    outline: none;
+}
+
+/* QListView */
+QListView {
+    padding: 10px;
+    font-size: 16px;
+    color: black;
+    background-color: #F0F0F0;
+    border: 1px solid #C0C0C0;
+}
+
+QListView::item {
+	background-color: transparent;
+    padding: 5px 10px;
+}
+
+QListView::item::hover {
+	background-color: #A9A9A9;
+    padding: 5px 10px;
+}
+
+QListView::item:selected {
+    background-color: #808080;
+    color: white;
+}
+
+/* QMenuBar */
+QMenuBar {
+    background-color: #C0C0C0;
+    color: black;
+    font-size: 16px;
+    padding: 5px;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background-color: #808080;
+    color: white;
+}
+
+/* QMenu */
+QMenu {
+    background-color: #C0C0C0;
+    font-size: 16px;
+    color: black;
+    border: 1px solid #808080;
+}
+
+QMenu::item {
+    padding: 5px 20px;
+    background-color: transparent;
+}
+
+QMenu::item:selected {
+    background-color: #808080;
+    color: white;
+}
+
+/* QStatusBar */
+QStatusBar {
+    background-color: #C0C0C0;
+    color: black;
+    font-size: 14px;
+    padding: 5px;
+}
+
+/* QComboBox */
+QComboBox {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: black;
+    background-color: #C0C0C0;
+    border: none;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #F0F0F0;
+    border: 1px solid #808080;
+}
+
+QComboBox::drop-down {
+    border: none;
+    background-color: #C0C0C0;
+}
+
+QComboBox::down-arrow {
+    width: 10px;
+    height: 10px;
+}
+
+/* QLabel */
+QLabel {
+    font-size: 16px;
+    color: black;
+    padding: 5px 0;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QListView" name="listView"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="enterFunction">
+          <property name="placeholderText">
+           <string>Введите функцию..</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addFunction">
+          <property name="text">
+           <string>Добавить функцию</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeFunction">
+          <property name="text">
+           <string>Удалить функцию</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCustomPlot" name="plot" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>934</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="file">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="newFile"/>
+    <addaction name="openFile"/>
+    <addaction name="separator"/>
+    <addaction name="saveFile"/>
+    <addaction name="saveFileAs"/>
+    <addaction name="separator"/>
+    <addaction name="exit"/>
+   </widget>
+   <widget class="QMenu" name="options">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <widget class="QMenu" name="graphic">
+     <property name="title">
+      <string>График</string>
+     </property>
+     <addaction name="color"/>
+     <addaction name="style"/>
+     <addaction name="thickness"/>
+    </widget>
+    <addaction name="graphic"/>
+    <addaction name="range"/>
+    <addaction name="clear"/>
+   </widget>
+   <widget class="QMenu" name="help">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="help_2"/>
+    <addaction name="about"/>
+   </widget>
+   <addaction name="file"/>
+   <addaction name="options"/>
+   <addaction name="help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="newFile">
+   <property name="text">
+    <string>Новый файл..</string>
+   </property>
+  </action>
+  <action name="openFile">
+   <property name="text">
+    <string>Открыть файл..</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="saveFile">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+  <action name="exit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="color">
+   <property name="text">
+    <string>Цвет</string>
+   </property>
+  </action>
+  <action name="style">
+   <property name="text">
+    <string>Стиль</string>
+   </property>
+  </action>
+  <action name="thickness">
+   <property name="text">
+    <string>Толщина</string>
+   </property>
+  </action>
+  <action name="range">
+   <property name="text">
+    <string>Диапазон</string>
+   </property>
+  </action>
+  <action name="clear">
+   <property name="text">
+    <string>Очистить</string>
+   </property>
+  </action>
+  <action name="saveFileAs">
+   <property name="text">
+    <string>Сохранить как..</string>
+   </property>
+  </action>
+  <action name="help_2">
+   <property name="text">
+    <string>Справка</string>
+   </property>
+  </action>
+  <action name="about">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
