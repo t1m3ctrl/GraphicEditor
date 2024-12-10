@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->listView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listView, &QListView::customContextMenuRequested, this, &MainWindow::on_CustomContextMenuRequested);
+    connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(on_UpdatePlot()));
     on_UpdatePlot();
 }
 
@@ -40,6 +41,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_addFunction_clicked()
 {
     QString function = ui->enterFunction->text().trimmed();
+
+    if (!validateFunction(function)) {
+        return;
+    }
+
     if (!function.isEmpty()) {
         model->addFunction(function);
         ui->enterFunction->clear();
@@ -58,10 +64,13 @@ void MainWindow::on_UpdatePlot()
 {
     ui->plot->clearGraphs();
 
-    double xMin = ui->plot->xAxis->range().lower - 100;
-    double xMax = ui->plot->xAxis->range().upper + 100;
+    double xMin = ui->plot->xAxis->range().lower;
+    double xMax = ui->plot->xAxis->range().upper;
 
-    int points = 20000;
+    int points = static_cast<int>((xMax - xMin) * 10);  // Умножаем на коэффициент для точности
+    points = std::min(points, 20000);  // Ограничиваем верхний предел 20000 точками
+    points = std::max(points, 100);    // Ограничиваем нижний предел 100 точками
+
     double step = (xMax - xMin) / points;
 
     QVector<double> x(points + 1), y(points + 1);
@@ -73,6 +82,10 @@ void MainWindow::on_UpdatePlot()
         for (int j = 0; j <= points; ++j) {
             x[j] = xMin + j * step;
             y[j] = SimpleParser::evaluate(function, x[j]);
+
+            if (std::isnan(y[i]) || std::isinf(y[i])) {
+                y[i] = 0;  // или какое-то другое значение по умолчанию
+            }
         }
 
         ui->plot->addGraph();
@@ -82,6 +95,52 @@ void MainWindow::on_UpdatePlot()
 
     ui->plot->replot();
 }
+
+bool MainWindow::validateFunction(const QString &expression) {
+    if (expression.isEmpty()) {
+        // Ошибка ввода: пустая строка
+        QMessageBox::critical(nullptr, "Ошибка", "Пустая строка.");
+        return false;
+    }
+
+    // Убираем все пробелы в начале и в конце строки
+    QString trimmedExpr = expression.trimmed();
+
+    // Проверка на наличие только разрешенных символов (цифры, буквы, операторы, скобки)
+    // QRegularExpression regex("^[0-9a-zA-Z\\+\\-\\*/^()\\.x]+$");
+    // if (!regex.match(trimmedExpr).hasMatch()) {
+    //     QMessageBox::critical(nullptr, "Ошибка", "Функция содержит недопустимые символы.");
+    //     return false;
+    // }
+
+    // Проверка на наличие нескольких подряд идущих знаков операций
+    QRegularExpression operatorRegex("[\\+\\-\\*/^]{2,}");
+    if (operatorRegex.match(trimmedExpr).hasMatch()) {
+        QMessageBox::critical(nullptr, "Ошибка", "Функция содержит подряд идущие операторы.");
+        return false;
+    }
+
+    // Использование tinyexpr для проверки математического выражения с переменной x
+    std::string exprStd = trimmedExpr.toStdString();
+    const char *expr = exprStd.c_str();
+    te_variable variables[] = {
+        { "x", nullptr , 0, nullptr} // Переменная x
+    };
+    // В данном случае мы не используем значения для переменной x, просто проверяем синтаксис
+    te_expr *parsed_expr = te_compile(expr, variables, sizeof(variables) / sizeof(variables[0]), nullptr);
+
+    if (parsed_expr == nullptr) {
+        // Если выражение не может быть разобрано, оно некорректно
+        QMessageBox::critical(nullptr, "Ошибка", "Некорректное математическое выражение.");
+        return false;
+    }
+
+    // Освобождаем ресурсы, если выражение валидное
+    te_free(parsed_expr);
+
+    return true;
+}
+
 
 void MainWindow::on_CustomContextMenuRequested(const QPoint &pos)
 {
@@ -352,11 +411,6 @@ void MainWindow::saveSettings() {
     settings.setValue("plot/xMax", ui->plot->xAxis->range().upper);
     settings.setValue("plot/yMin", ui->plot->yAxis->range().lower);
     settings.setValue("plot/yMax", ui->plot->yAxis->range().upper);
-}
-
-void MainWindow::on_about_triggered()
-{
-
 }
 
 void MainWindow::onUpdateTimer() {

@@ -19,6 +19,15 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    QString filePath = ":/resources/style.qss";  // В случае использования ресурсов
+    QFile file(filePath);
+    // QFile file("style.qss");  // Если файл находится в каталоге проекта
+    if (file.open(QFile::ReadOnly | QFile::Text)) {
+        QTextStream ts(&file);
+        QString style = ts.readAll();
+        a.setStyleSheet(style);
+    }
+
     LoginWindow loginWindow;
 
     if (loginWindow.exec() == QDialog::Accepted) {

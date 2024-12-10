@@ -20,7 +20,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp \
-    rangedialog.cpp
+    rangedialog.cpp \
+    tinyexpr.c
 
 HEADERS += \
     SimpleParser.h \
@@ -29,7 +30,8 @@ HEADERS += \
     loginwindow.h \
     mainwindow.h \
     qcustomplot.h \
-    rangedialog.h
+    rangedialog.h \
+    tinyexpr.h
 
 FORMS += \
     loginwindow.ui \

@@ -36,6 +36,10 @@ private:
     QElapsedTimer sessionElapsed; // Хранение времени текущей сессии
 
     void updateSessionTime();
+    bool validateFunction(const QString &function);
+
+    void saveSettings();
+    void loadSettings();
 
 private slots:
     void on_UpdatePlot();
@@ -57,9 +61,6 @@ private slots:
     void on_saveFileAs_triggered();
     void saveToFile(const QString &fileName);
     void on_help_2_triggered();
-    void saveSettings();
-    void loadSettings();
-    void on_about_triggered();
     void onUpdateTimer();
 };
 #endif // MAINWINDOW_H

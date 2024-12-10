@@ -14,132 +14,7 @@
    <string>Graphic Editor</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* QPushButton */
-QPushButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #C0C0C0;
-    border: none;
-}
-
-QPushButton:hover {
-    background-color: #808080;
-}
-
-/* QLineEdit */
-QLineEdit {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: black;
-    background-color: #C0C0C0;
-    border: none;
-}
-
-QLineEdit:focus {
-    background-color: #808080;
-    outline: none;
-}
-
-/* QListView */
-QListView {
-    padding: 10px;
-    font-size: 16px;
-    color: black;
-    background-color: #F0F0F0;
-    border: 1px solid #C0C0C0;
-}
-
-QListView::item {
-	background-color: transparent;
-    padding: 5px 10px;
-}
-
-QListView::item::hover {
-	background-color: #A9A9A9;
-    padding: 5px 10px;
-}
-
-QListView::item:selected {
-    background-color: #808080;
-    color: white;
-}
-
-/* QMenuBar */
-QMenuBar {
-    background-color: #C0C0C0;
-    color: black;
-    font-size: 16px;
-    padding: 5px;
-}
-
-QMenuBar::item {
-    background-color: transparent;
-    padding: 5px 10px;
-}
-
-QMenuBar::item:selected {
-    background-color: #808080;
-    color: white;
-}
-
-/* QMenu */
-QMenu {
-    background-color: #C0C0C0;
-    font-size: 16px;
-    color: black;
-    border: 1px solid #808080;
-}
-
-QMenu::item {
-    padding: 5px 20px;
-    background-color: transparent;
-}
-
-QMenu::item:selected {
-    background-color: #808080;
-    color: white;
-}
-
-/* QStatusBar */
-QStatusBar {
-    background-color: #C0C0C0;
-    color: black;
-    font-size: 14px;
-    padding: 5px;
-}
-
-/* QComboBox */
-QComboBox {
-    padding: 5px 10px;
-    font-size: 16px;
-    color: black;
-    background-color: #C0C0C0;
-    border: none;
-}
-
-QComboBox QAbstractItemView {
-    background-color: #F0F0F0;
-    border: 1px solid #808080;
-}
-
-QComboBox::drop-down {
-    border: none;
-    background-color: #C0C0C0;
-}
-
-QComboBox::down-arrow {
-    width: 10px;
-    height: 10px;
-}
-
-/* QLabel */
-QLabel {
-    font-size: 16px;
-    color: black;
-    padding: 5px 0;
-}
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -199,7 +74,7 @@ QLabel {
      <x>0</x>
      <y>0</y>
      <width>934</width>
-     <height>41</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="file">
@@ -235,7 +110,6 @@ QLabel {
      <string>Справка</string>
     </property>
     <addaction name="help_2"/>
-    <addaction name="about"/>
    </widget>
    <addaction name="file"/>
    <addaction name="options"/>

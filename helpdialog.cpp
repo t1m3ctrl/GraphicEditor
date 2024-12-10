@@ -5,7 +5,7 @@ HelpDialog::HelpDialog(QWidget *parent)
 {
     // Настраиваем интерфейс
     setWindowTitle("Справка");
-    setMinimumSize(200, 300);
+    setMinimumSize(400, 500);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(textBrowser);
@@ -21,7 +21,7 @@ HelpDialog::~HelpDialog()
 void HelpDialog::loadHelpContent()
 {
     // Загрузка HTML-файла справки
-    QString helpPath = ":/help/help.html"; // Пути к ресурсам Qt
+    QString helpPath = ":/resources/help.html"; // Пути к ресурсам Qt
     QFile helpFile(helpPath);
 
     if (helpFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
